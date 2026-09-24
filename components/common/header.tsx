@@ -7,82 +7,44 @@ import { useState } from "react";
 import { IoIosMenu } from "react-icons/io";
 import { IoClose } from "react-icons/io5";
 
-type Props = {
-    onEnquiryClick: () => void;
-}
-
-export default function Header({onEnquiryClick}: Props) {
+export default function Header() {
     const basePath = process.env.NEXT_PUBLIC_PATH!.replace(/\/$/, "");
 
     const [openMenu, updateMenu] = useState(false);
 
     return (
-        <header className="fixed top-0 left-0 w-full flex justify-between px-5 md:px-10 xl:px-20 2xl:px-30 bg-gradient-to-b from-black/70 to-transparent z-50">
-            <Link href="/" className="w-20 md:w-25 xl:w-30">
-                <Image src={`${basePath}/images/yoo-logo.png`} alt="YOO logo" width={130} height={180} className="object-cover w-full h-full" loading="eager" />
+        <header className="fixed top-0 left-0 w-full flex justify-between bg-black/70 z-50 px-25 py-3">
+            <Link href="/" className="w-[125px]">
+                <div>
+                    <Image src={`${basePath}/images/logo.png`} alt="Trump Towers logo" width={125} height={72} className="object-cover w-full h-full" loading="eager" />
+                </div>
             </Link>
-            <ul className="hidden lg:flex lg:gap-5 xl:gap-10 uppercase text-white font-futura-bold tracking-wide desktop_menu">
-                <li className="hover:border-[#ff853c] hover:border-t-4">
-                    <Link href="/#home" className="w-6">
-                        <div>
-                            <Image src={`${basePath}/images/home-icon.png`} alt="Home" width={24} height={24} className="object-cover w-full h-full" loading="eager" />
-                        </div>
-                    </Link>
+            <ul className="desktop_menu">
+                <li>
+                    <Link href="/#about">Trump Tower Pune</Link>
                 </li>
-                <li className="hover:border-[#ff853c] hover:border-t-4">
-                    <Link href="/#about">ABOUT</Link>
+                <li>
+                    <Link href="/#residences">Residences</Link>
                 </li>
-                <li className="hover:border-[#ff853c] hover:border-t-4">
-                    <Link href="/#configurations">CONFIGURATION</Link>
+                <li>
+                    <Link href="/#amenities">Amenities</Link>
                 </li>
-                <li className="hover:border-[#ff853c] hover:border-t-4">
-                    <Link href="/#amenities">AMENITIES</Link>
+                <li>
+                    <Link href="/#location">Location</Link>
                 </li>
-                <li className="hover:border-[#ff853c] hover:border-t-4">
-                    <Link href="/#gallery">GALLERY</Link>
+                <li>
+                    <Link href="/#portfolio">The Trump Portfolio</Link>
                 </li>
-                <li className="hover:border-[#ff853c] hover:border-t-4">
-                    <Link href="/#connect">CONNECT</Link>
-                </li>
-                <li className="cursor-pointer" onClick={onEnquiryClick}>
-                    <span className="transition-all duration-200 hover:border-[#ff853c] hover:border-t-3 px-3 py-2 border border-[#ff853c] hover:bg-[#ff853c]">ENQUIRE NOW</span>
+                <li>
+                    <Link href="https://www.panchshilprivilege.com/" target="_blank">Panchshil Privilege</Link>
                 </li>
             </ul>
-            <IoIosMenu size={50} className="lg:hidden default-color cursor-pointer mt-5" onClick={() => updateMenu(true)} />
-            <div className={`md:hidden z-50 absolute right-0 top-0 w-full flex transform transition-transform origin-right duration-300 ${openMenu ? 'scale-x-100': 'scale-x-0'}`}>
-                <div className="w-[30%] h-screen bg-white/5 backdrop-blur-xs"></div>
-                <div className="bg-white w-[70%] h-screen relative">
-                    <div className="default-bg-color w-full h-2"></div>
-                    <IoClose size={50} className="cursor-pointer absolute right-5 top-5 text-black" onClick={() => updateMenu(false)} />
-                    <ul className="flex flex-col gap-10 uppercase text-xs px-10 py-10 default-color font-futura-bold tracking-wide mobile_menu">
-                        <li onClick={() => updateMenu(false) }>
-                            <Link href="/#home" className="w-5">
-                                <div>
-                                    <Image src={`${basePath}/images/home-icon.png`} alt="Home" width={24} height={24} className="object-cover w-full h-full" loading="eager" />
-                                </div>
-                            </Link>
-                        </li>
-                        <li onClick={() => updateMenu(false) }>
-                            <Link href="/#about">ABOUT</Link>
-                        </li>
-                        <li onClick={() => updateMenu(false) }>
-                            <Link href="/#configurations">CONFIGURATION</Link>
-                        </li>
-                        <li onClick={() => updateMenu(false) }>
-                            <Link href="/#amenities">AMENITIES</Link>
-                        </li>
-                        <li onClick={() => updateMenu(false) }>
-                            <Link href="/#gallery">GALLERY</Link>
-                        </li>
-                        <li onClick={() => updateMenu(false) }>
-                            <Link href="/#connect">CONNECT</Link>
-                        </li>
-                        <li className="cursor-pointer" onClick={() => { onEnquiryClick(); updateMenu(false) } }>
-                            <span className="transition-all duration-200 hover:text-white hover:border-[#ff853c] hover:border-t-3 px-3 py-2 border border-[#ff853c] hover:bg-[#ff853c]">ENQUIRE NOW</span>
-                        </li>
-                    </ul>
+            <Link href="https://www.panchshil.com/" target="_blank" className="w-15 h-15">
+                <div className="w-full">
+                    <Image src={`${basePath}/images/panchsil-corp-logo.png`} alt="Panchshil Logo" width={100} height={100} className="w-full h-full object-cover" loading="eager" />
                 </div>
-            </div>
+            </Link>
+            <IoIosMenu size={50} className="lg:hidden default-color cursor-pointer mt-5" onClick={() => updateMenu(true)} />
         </header>
     )
 }

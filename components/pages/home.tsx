@@ -10,7 +10,6 @@ import "swiper/css/pagination";
 
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
-import EnquiryFormPopUp from "@/components/common/enquiry-form-pop-up";
 
 import { AboutPanchshilProps, HomeLandmarkProps, HomePortfolioProps, HomeAmenitiesProps, HomeGalleryProps, HomeIntroProps, HomeSliderProps } from "@/types/api"
 
@@ -25,6 +24,7 @@ import nl2br from 'nl2br'
 import Link from "next/link";
 import EnquiryFormHTML from "@/components/common/enquiry-form";
 import ScrollReveal from "@/components/utils/ScrollReveal";
+import Sidebar from "../common/sidebar";
 
 type Props = {
     sliders: HomeSliderProps[]
@@ -51,51 +51,38 @@ export default function HomePage({
 
     return (
         <>
-        <Header onEnquiryClick={() => updateActivePopUp(true)} />
+        <Header />
         <main className="bg-black">
             {
                 sliders && sliders.length > 0 && (
-                <section className="relative md:h-screen w-full overflow-hidden animate-fade-in" id="home">
+                <section className="relative md:h-screen w-full overflow-hidden">
                     <Swiper
-                    modules={[Navigation, Pagination, Autoplay]}
+                    modules={[Pagination, Autoplay]}
                     slidesPerView={1}
                     spaceBetween={0}
                     speed={800}
                     loop={true}
+                    pagination={{clickable: true}}
                     autoplay={{delay: 5000, pauseOnMouseEnter: false}}
-                    navigation={{prevEl: '.master-slider-prev', nextEl: '.master-slider-next'}}
-                    pagination={{
-                        el: ".master-slider-pagination",
-                        clickable: true,
-                        renderBullet: (index, className) =>
-                            `<span class="${className}">${String(index + 1).padStart(2, "0")}</span>`,
-                    }}
-                    className="w-full h-100 md:h-full"
+                    className="w-full text-white master_slider"
                     >
                         {
                             sliders.map((slider, key) => (
-                                <SwiperSlide key={key}>
-                                    <Image src={slider.slider_image_url} alt={slider.slider_caption} width={1920} height={1080} priority={key === 0} className="w-full h-full object-cover" />
+                                <SwiperSlide key={key} className="bg-no-repeat bg-cover bg-center relative" style={{backgroundImage: `url(${slider.slider_image_url})`}}>
+                                    <div className="absolute inset-0 z-1 bg-black/50"></div>
+                                    <div className="w-full h-screen flex justify-center items-center text-center relative z-2">
+                                        <h2 className="text-3xl leading-normal font-galaxie-polaris-light">{parser(nl2br(slider.slider_caption))}</h2>
+                                    </div>
                                 </SwiperSlide>
                             ))
                         }
                     </Swiper>
-                    <div className="pointer-events-none absolute bottom-0 left-0 z-1 h-[100px] w-full bg-gradient-to-t from-black/100 to-transparent" />
-                    <div className="absolute bottom-10 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-15 z-10 flex items-center gap-10">
-                        <button className="master-slider-prev text-white cursor-pointer" aria-label="Previous Slide">
-                            <HiArrowLongLeft size={30} />
-                        </button>
-                        <div className="master-slider-pagination flex items-center gap-7 text-white text-xl" />
-                        <button className="master-slider-next text-white cursor-pointer" aria-label="Next Slide">
-                            <HiArrowLongRight size={30} />
-                        </button>
-                    </div>
                 </section>
                 )
             }
         </main>
         <Footer />
-        <EnquiryFormPopUp activePopUp={activePopUp} updateActivePopUp={updateActivePopUp} />
+        <Sidebar />
         </>
     )
 }

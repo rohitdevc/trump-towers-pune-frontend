@@ -2,7 +2,7 @@
 
 :root {
   --background: #343437;
-  --foreground: #ffffff;
+  --foreground: #caa063;
 }
 
 @theme inline {
@@ -64,6 +64,34 @@ body {
 
 .default-bg-color {
   background-color: var(--foreground)
+}
+
+header {
+  @apply text-[#E55031]
+}
+
+.desktop_menu {
+  @apply flex items-center uppercase tracking-[2px] border-t border-[#E55031]
+}
+
+.desktop_menu li {
+  @apply border-r border-[#E55031] text-xs font-athelas-regular px-5 h-full flex items-center transition-all duration-300 hover:text-white
+}
+
+.desktop_menu li:last-child {
+  @apply border-r-0;
+}
+
+.master_slider .swiper-pagination {
+  @apply flex gap-3 items-center justify-center
+}
+
+.master_slider .swiper-pagination-bullet {
+  @apply bg-white w-3 h-3 opacity-100 transition-all duration-300
+}
+
+.master_slider .swiper-pagination-bullet-active {
+  @apply bg-[var(--foreground)] w-5 h-5
 }
 
 .enquiry_form {
