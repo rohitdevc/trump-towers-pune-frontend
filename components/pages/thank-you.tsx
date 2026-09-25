@@ -4,7 +4,7 @@ import Script from "next/script";
 
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
-import EnquiryFormPopUp from "@/components/common/enquiry-form-pop-up";
+import Sidebar from "../common/sidebar";
 
 import { useState } from "react";
 
@@ -16,11 +16,9 @@ type Props = {
 }
 
 export default function ThankYouPage({banner}: Props) {
-    const [activePopUp, updateActivePopUp] = useState(false);
-
     return (
         <>
-        <Header onEnquiryClick={() => updateActivePopUp(true)} />
+        <Header />
         <main className="bg-no-repeat bg-cover bg-center h-[85vh]" style={{backgroundImage: `url(${banner.banner_image_url})`}}>
             <section className="flex flex-col gap-5 justify-center items-center text-center w-full h-full text-white px-5">
                 <h1 className="font-futura-bold text-3xl xl:text-6xl leading-tight">THANK YOU FOR <br />YOUR INTEREST!</h1>
@@ -29,7 +27,7 @@ export default function ThankYouPage({banner}: Props) {
             </section>
         </main>
         <Footer />
-        <EnquiryFormPopUp activePopUp={activePopUp} updateActivePopUp={updateActivePopUp} />
+        <Sidebar />
         </>
     )
 }
