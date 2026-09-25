@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowDropright } from "react-icons/io";
 
 import { EnquiryFormErrors, EnquiryForm } from "@/types/forms";
 
@@ -12,12 +12,7 @@ import { isEmail, isEmpty } from 'validator';
 
 import Loader from "@/components/utils/loader";
 
-type Props = {
-    textColour: string;
-    bgColour: string;
-}
-
-export default function EnquiryFormHTML({textColour, bgColour}: Props) {
+export default function EnquiryFormHTML() {
     const basePath = process.env.NEXT_PUBLIC_PATH!.replace(/\/$/, "");
 
     const [showLoader, updateLoader] = useState(false);
@@ -198,19 +193,19 @@ export default function EnquiryFormHTML({textColour, bgColour}: Props) {
 
     return (
         <>
-        <form className="enquiry_form px-5 sm:px-10 lg:px-20 xl:px-25 w-full !text-left" autoComplete="off" onSubmit={enquiryFormSubmit}>
+        <form className="enquiry_form" autoComplete="off" onSubmit={enquiryFormSubmit}>
             <div className="flex flex-col sm:flex-row gap-5 sm:gap-10 justify-between">
                 <div className="relative w-full sm:w-1/2">
                     <input type="text" name="enquiry_first_name" placeholder="First Name" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_first_name} ref={enquiryFirstNameRef} />
                     <span className="w-full absolute left-0 top-8 h-[0.5px]"></span>
-                    <div className="text-black h-1 pt-1">
+                    <div className="text-white h-1 pt-1">
                         <span className={`text-xs transition-all duration-200 ${errors.enquiry_first_name ? "opacity-100" : "opacity-0"}`}>{errors.enquiry_first_name}</span>
                     </div>
                 </div>
                 <div className="relative w-full sm:w-1/2">
                     <input type="text" name="enquiry_last_name" placeholder="Last Name" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_last_name} ref={enquiryLastNameRef} />
                     <span className="w-full absolute left-0 top-8 h-[0.5px]"></span>
-                    <div className="text-black h-1 pt-1">
+                    <div className="text-white h-1 pt-1">
                         <span className={`text-xs transition-all duration-200 ${errors.enquiry_last_name ? "opacity-100" : "opacity-0"}`}>{errors.enquiry_last_name}</span>
                     </div>
                 </div>
@@ -220,7 +215,7 @@ export default function EnquiryFormHTML({textColour, bgColour}: Props) {
                     <select name="enquiry_country_code" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_country_code} ref={enquiryCountryCodeRef}>
                     {
                         countries && countries.length > 0 && countries.map((country, key) => (
-                        <option className="default-bg-color" value={country.isdCode} key={key}>{country.name} {country.isdCode}</option>
+                        <option value={country.isdCode} key={key}>{country.name} {country.isdCode}</option>
                         ))
                     }
                     </select>
@@ -228,12 +223,12 @@ export default function EnquiryFormHTML({textColour, bgColour}: Props) {
                         <IoIosArrowDown size={20} />
                     </div>
                     <span className="w-full absolute left-0 top-8 h-[0.5px]"></span>
-                    <div className="text-black h-1 pt-1"></div>
+                    <div className="text-white h-1 pt-1"></div>
                 </div>
                 <div className="relative w-full sm:w-1/2">
                     <input type="tel" name="enquiry_phone_number" placeholder="Mobile" inputMode="numeric" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_phone_number} ref={enquiryPhoneNumberRef} />
                     <span className="w-full absolute left-0 top-8 h-[0.5px]"></span>
-                    <div className="text-black h-1 pt-1">
+                    <div className="text-white h-1 pt-1">
                         <span className={`text-xs transition-all duration-200 ${errors.enquiry_phone_number ? "opacity-100" : "opacity-0"}`}>{errors.enquiry_phone_number}</span>
                     </div>
                 </div>
@@ -241,18 +236,16 @@ export default function EnquiryFormHTML({textColour, bgColour}: Props) {
             <div className="relative w-full">
                 <input type="email" name="enquiry_email_address" placeholder="Email" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_email_address} ref={enquiryEmailAddressRef} />
                 <span className="w-full absolute left-0 top-8 h-[0.5px]"></span>
-                <div className="text-black h-1 pt-1">
-                    <span className={`text-black text-xs transition-all duration-200 ${errors.enquiry_email_address ? "opacity-100" : "opacity-0"}`}>{errors.enquiry_email_address}</span>
+                <div className="text-white h-1 pt-1">
+                    <span className={`text-white text-xs transition-all duration-200 ${errors.enquiry_email_address ? "opacity-100" : "opacity-0"}`}>{errors.enquiry_email_address}</span>
                 </div>
             </div>
             <div className="relative w-full">
                 <textarea name="enquiry_message" placeholder="Message" className="min-h-25 resize-none" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_message} ref={enquiryMessageRef}></textarea>
             </div>
-            <div className="w-full flex pt-5 xl:pt-10">
-                <button className={`uppercase cursor-pointer w-30 h-10 border mx-auto tracking-wider futura-book transition-all duration-300 bg-[var(--bg-color)] text-[var(--text-color)] hover:bg-[var(--text-color)] hover:text-[var(--bg-color)]`} style={{
-                    "--bg-color": bgColour,
-                    "--text-color": textColour,
-                    } as React.CSSProperties}>Submit</button>
+            <div className="flex justify-center items-center w-fit gap-2 mx-auto">
+                <button className={`uppercase cursor-pointer tracking-wider text-lg`}>Submit</button>
+                <IoIosArrowDropright size={35} />
             </div>
         </form>
         <Loader showLoader={showLoader} />

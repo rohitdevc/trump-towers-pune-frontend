@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
 import { FaPhoneAlt } from "react-icons/fa";
+import { IoIosArrowDown } from "react-icons/io";
 
 import parser from 'html-react-parser'
 import nl2br from 'nl2br'
@@ -77,7 +78,23 @@ export default function HomePage({
                             ))
                         }
                     </Swiper>
+                    <Link className="absolute left-1/2 -translate-x-1/2 bottom-20 z-2" href="#about">
+                        <IoIosArrowDown className="text-[#E55031]" size={70} />
+                    </Link>
                 </section>
+                )
+            }
+            {
+                introduction && (
+                    <section className="px-30 py-20 flex flex-col gap-10 text-white font-galaxie-polaris-light tracking-[2px] bg-cover bg-no-repeat default-bg-color" id="about" style={{backgroundImage: `url(${basePath}/images/about.png)`}}>
+                        <div className="flex flex-col gap-7 text-xl items-center">
+                            <hr className="border-[#ab8e5f] border-2 w-50" />
+                            <h2>Welcome to India’s first</h2>
+                            <Image src={`${basePath}/images/welcome.png`} alt="Trump Towers" width={200} height={44} />
+                            <h3>branded residences</h3>
+                            <hr className="border-[#ab8e5f] border-2 w-50" />
+                        </div>
+                    </section>
                 )
             }
         </main>

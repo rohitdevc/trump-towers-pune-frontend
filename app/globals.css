@@ -63,7 +63,7 @@ body {
 }
 
 .default-bg-color {
-  background-color: var(--foreground)
+  background-color: var(--background)
 }
 
 header {
@@ -94,8 +94,12 @@ header {
   @apply bg-[var(--foreground)] w-5 h-5
 }
 
+.privacy_policy ul {
+  @apply list-disc list-inside px-5
+}
+
 .enquiry_form {
-  @apply text-base flex flex-col gap-5
+  @apply text-base flex flex-col gap-10 font-galaxie-polaris-medium
 }
 
 .enquiry_form input, .enquiry_form select, .enquiry_form textarea {
