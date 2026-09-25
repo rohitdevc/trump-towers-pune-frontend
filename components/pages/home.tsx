@@ -15,9 +15,7 @@ import { AboutPanchshilProps, HomeLandmarkProps, HomePortfolioProps, HomeAmeniti
 
 import { useEffect, useRef, useState } from "react";
 
-import { HiArrowLongLeft, HiArrowLongRight } from "react-icons/hi2";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoIosArrowDown } from "react-icons/io";
+import { IoIosArrowDown, IoMdPlay } from "react-icons/io";
 
 import parser from 'html-react-parser'
 import nl2br from 'nl2br'
@@ -48,7 +46,28 @@ export default function HomePage({
 }: Props) {
     const basePath = process.env.NEXT_PUBLIC_PATH!.replace(/\/$/, "");
 
-    const [activePopUp, updateActivePopUp] = useState(false);
+    const [videoPlay, updateVideoPlay] = useState(false);
+
+    const [showVideoPlay, updateShowVideoPlay] = useState(false);
+
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    const handlePlay = () => {
+        updateShowVideoPlay(true);
+        updateVideoPlay(true);
+
+        setTimeout(() => {
+            videoRef.current?.play();
+        }, 0)
+    }
+
+    const handlePause = () => {
+        updateVideoPlay(false);
+
+        setTimeout(() => {
+            videoRef.current?.pause();
+        }, 0)
+    }
 
     return (
         <>
@@ -86,13 +105,30 @@ export default function HomePage({
             }
             {
                 introduction && (
-                    <section className="px-30 py-20 flex flex-col gap-10 text-white font-galaxie-polaris-light tracking-[2px] bg-cover bg-no-repeat default-bg-color" id="about" style={{backgroundImage: `url(${basePath}/images/about.png)`}}>
+                    <section className="px-50 py-20 flex flex-col gap-10 text-white font-galaxie-polaris-light tracking-[2px] bg-cover bg-no-repeat default-bg-color" id="about" style={{backgroundImage: `url(${basePath}/images/about.png)`}}>
                         <div className="flex flex-col gap-7 text-xl items-center">
                             <hr className="border-[#ab8e5f] border-2 w-50" />
                             <h2>Welcome to India’s first</h2>
                             <Image src={`${basePath}/images/welcome.png`} alt="Trump Towers" width={200} height={44} />
                             <h3>branded residences</h3>
                             <hr className="border-[#ab8e5f] border-2 w-50" />
+                        </div>
+                        <div className="h-150 relative" style={{backgroundImage: `url(${introduction.introduction_image_url})`}}>
+                            {
+                                introduction.introduction_video_url && (
+                                <>
+                                <IoMdPlay className={`absolute inset-0 top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 cursor-pointer transition-all duration-200 ${videoPlay ? 'scale-x-0 scale-y-0' : 'scale-x-100 scale-y-100' }`} size={60} onClick={handlePlay} />
+                                <h3 className={`uppercase cursor-pointer absolute top-5 right-5 transition-all duration-200 z-2 ${videoPlay ? 'scale-x-100 scale-y-100' : 'scale-x-0 scale-y-0' }`} onClick={handlePause}>Pause</h3>
+                                {
+                                    showVideoPlay && (
+                                    <video className={`z-1`} autoPlay playsInline ref={videoRef}>
+                                        <source src={introduction.introduction_video_url}></source>
+                                    </video>
+                                    )
+                                }
+                                </>
+                                )
+                            }
                         </div>
                     </section>
                 )
