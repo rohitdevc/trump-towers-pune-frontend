@@ -178,7 +178,7 @@ export default function EnquiryFormHTML() {
 
             if(!data.result) return false;
 
-            window.open(basePath + `/yoopune-brochure.pdf`, '_blank');
+            window.open(basePath + `/trump-towers.pdf`, '_blank');
 
             setTimeout(function() {
                 window.location.href = `${basePath}/thank-you`;
@@ -243,10 +243,7 @@ export default function EnquiryFormHTML() {
             <div className="relative w-full">
                 <textarea name="enquiry_message" placeholder="Message" className="min-h-25 resize-none" onChange={handleEnquiryFormChange} value={enquiryForm.enquiry_message} ref={enquiryMessageRef}></textarea>
             </div>
-            <div className="flex justify-center items-center w-fit gap-2 mx-auto">
-                <button className={`uppercase cursor-pointer tracking-wider text-lg`}>Submit</button>
-                <IoIosArrowDropright size={35} />
-            </div>
+            <button className={`uppercase cursor-pointer tracking-wider text-lg flex justify-center items-center w-fit gap-2 mx-auto`}>Submit <IoIosArrowDropright size={35} /></button>
         </form>
         <Loader showLoader={showLoader} />
         </>

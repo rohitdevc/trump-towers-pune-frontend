@@ -71,11 +71,11 @@ header {
 }
 
 .desktop_menu {
-  @apply flex items-center uppercase tracking-[2px] border-t border-[#E55031]
+  @apply hidden lg:flex items-center uppercase tracking-[2px] border-t border-[#E55031] h-20
 }
 
 .desktop_menu li {
-  @apply border-r border-[#E55031] text-xs font-athelas-regular px-5 h-full flex items-center transition-all duration-300 hover:text-white
+  @apply border-r border-[#E55031] text-[10px] xl:text-xs font-athelas-regular px-2 xl:px-5 h-full flex items-center transition-all duration-300 hover:text-white
 }
 
 .desktop_menu li:last-child {
@@ -83,7 +83,7 @@ header {
 }
 
 .master_slider .swiper-pagination {
-  @apply flex gap-3 items-center justify-center
+  @apply flex gap-3 mb-5 items-center justify-center
 }
 
 .master_slider .swiper-pagination-bullet {
@@ -96,6 +96,18 @@ header {
 
 .privacy_policy ul {
   @apply list-disc list-inside px-5
+}
+
+.gallery .swiper-wrapper, .amenities .swiper-wrapper {
+    align-items: center;
+}
+
+.gallery .swiper-slide, .amenities .swiper-slide {
+  @apply opacity-50 h-60 md:h-110 transition-all duration-500
+}
+
+.gallery .swiper-slide-active, .amenities .swiper-slide-active {
+  @apply opacity-100 h-75 md:h-125
 }
 
 .enquiry_form {

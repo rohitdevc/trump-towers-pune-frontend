@@ -4,16 +4,18 @@ const isNetlifyDomain = process.env.URL?.includes("netlify.app");
 
 const nextConfig: NextConfig = {
 	output: 'standalone',
+
+	allowedDevOrigins: ['192.168.0.193'],
 	
 	turbopack: {
 		root: __dirname,
 	},
-
-  basePath: process.env.BASEPATH_PREFIX === "/" ? "" : process.env.BASEPATH_PREFIX,
+	
+	basePath: process.env.BASEPATH_PREFIX === "/" ? "" : process.env.BASEPATH_PREFIX,
+	
+	assetPrefix: process.env.ASSET_PREFIX === "/" ? "" : process.env.ASSET_PREFIX,
   
-  assetPrefix: process.env.ASSET_PREFIX === "/" ? "" : process.env.ASSET_PREFIX,
-
-  images: {
+ 	images: {
 		remotePatterns: [
 			{
 				protocol: 'https',
@@ -23,8 +25,8 @@ const nextConfig: NextConfig = {
 			}
 		]
 	},
-
-  async headers() {
+	
+	async headers() {
 		const headers = [];
 		
 		if (isNetlifyDomain) {
@@ -39,8 +41,8 @@ const nextConfig: NextConfig = {
 			});
 		}
 
-    return headers;
-  }
+		return headers;
+	}
 };
 
 export default nextConfig;

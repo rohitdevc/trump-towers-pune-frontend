@@ -22,13 +22,13 @@ export default function Footer() {
 
     return (
         <>
-        <section className={`fixed top-0 left-0 bg-black/50 z-10 w-full h-screen overflow-y-auto pt-30 pb-10 flex justify-center transtion-all origin-center duration-200 text-white font-galaxie-polaris-light ${privacyPolicyPopUp ? 'scale-x-100 scale-y-100' : 'scale-x-0 scale-y-0'}`}>
-            <div className="w-[900px] relative bg-contain bg-center h-fit" style={{backgroundImage: `url(${basePath}/images/modal-bg.jpg)`}}>
+        <section className={`fixed top-0 left-0 bg-black/50 z-5 w-full h-screen overflow-y-auto pt-20 pb-10 px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-30 flex justify-center transtion-all origin-center duration-200 text-white font-galaxie-polaris-light ${privacyPolicyPopUp ? 'scale-x-100 scale-y-100' : 'scale-x-0 scale-y-0'}`}>
+            <div className="relative bg-contain bg-center h-fit" style={{backgroundImage: `url(${basePath}/images/modal-bg.jpg)`}}>
                 <IoMdClose onClick={() => { updatePrivacyPolicyPopUp(false); startBodyScroll(); }} className="absolute top-10 right-5 cursor-pointer text-[#d1aa6c]" size={25} />
                 <div className="pt-15 pb-5">
-                    <h2 className="uppercase border-b border-[#d1aa6c] pb-1 w-fit mx-auto text-4xl tracking-[1px]">Privacy Policy</h2>
+                    <h2 className="uppercase border-b border-[#d1aa6c] pb-1 w-fit mx-auto text-2xl md:text-4xl tracking-[1px]">Privacy Policy</h2>
                 </div>
-                <div className="text-[#cecbcb] px-10 py-10 flex flex-col gap-3 privacy_policy">
+                <div className="text-[#cecbcb] px-5 md:px-10 py-10 flex flex-col gap-3 privacy_policy">
                     <p>Panchshil Realty (which term includes all subsidiaries of Panchshil Realty) ("Company", "we" or &ldquo;us&rdquo;) respect your privacy and are committed to protecting it through our compliance with this policy. Panchshil Realty operates www.trumptowerspune.com (the "Website").</p>
                     <p>This policy describes the types of information we may collect from you or that you may provide when you visit the website www.trumptowerspune.com and our practices for collecting, using, maintaining, protecting and disclosing that information.</p>
                     <p>This policy applies to information we collect:</p>
@@ -138,13 +138,13 @@ export default function Footer() {
                 </div>
             </div>
         </section>
-        <section className={`fixed top-0 left-0 bg-black/50 z-10 w-full h-screen overflow-y-auto pt-30 pb-10 flex justify-center transtion-all origin-center duration-200 text-white font-galaxie-polaris-light ${disclaimerPopUp ? 'scale-x-100 scale-y-100' : 'scale-x-0 scale-y-0'}`}>
-            <div className="w-[900px] relative bg-contain bg-center h-fit" style={{backgroundImage: `url(${basePath}/images/modal-bg.jpg)`}}>
+        <section className={`fixed top-0 left-0 bg-black/50 z-5 w-full h-screen overflow-y-auto pt-20 pb-10 px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-30 flex justify-center transtion-all origin-center duration-200 text-white font-galaxie-polaris-light ${disclaimerPopUp ? 'scale-x-100 scale-y-100' : 'scale-x-0 scale-y-0'}`}>
+            <div className="relative bg-contain bg-center h-fit" style={{backgroundImage: `url(${basePath}/images/modal-bg.jpg)`}}>
                 <IoMdClose onClick={() => { updateDisclaimerPopUp(false); startBodyScroll(); }} className="absolute top-10 right-5 cursor-pointer text-[#d1aa6c]" size={25} />
                 <div className="pt-15 pb-5">
-                    <h2 className="uppercase border-b border-[#d1aa6c] pb-1 w-fit mx-auto text-4xl tracking-[1px]">Disclaimer</h2>
+                    <h2 className="uppercase border-b border-[#d1aa6c] pb-1 w-fit mx-auto text-2xl md:text-4xl tracking-[1px]">Disclaimer</h2>
                 </div>
-                <div className="text-[#cecbcb] px-15 py-10 flex flex-col gap-3">
+                <div className="text-[#cecbcb] px-5 sm:px-10 md:px-15 py-10 flex flex-col gap-3">
                     <ul className="flex flex-col gap-3 list-disc">
                         <li>This project was completed before May 1, 2017 prior to the commencement of MahaRERA compliance requirements.</li>
                         <li>All rights and titles to www.trumptowerspune.com (&ldquo;Website&rdquo; which term shall include any related mobile applications) vest in&nbsp;Panchshil Realty and Developers Pvt. Ltd. (&ldquo;The&nbsp;Company&rdquo;) and/or its affiliates and subsidiaries for visitor&rsquo;s (&ldquo;Visitor&rdquo;) informational purposes only, subject to these terms and conditions and all modifications thereto (&ldquo;T&amp;C).</li>
@@ -157,10 +157,10 @@ export default function Footer() {
                 </div>
             </div>
         </section>
-        <footer className="py-5 flex flex-col gap-5 px-30 justify-center items-center uppercase">
-            <div className="flex justify-between border-b border-[var(--foreground)] w-full px-20 py-4 font-galaxie-polaris-medium text-xs tracking-[2px]">
+        <footer className="py-5 flex flex-col gap-5 px-5 sm:px-10 md:px-15 lg:px-20 xl:px-30 justify-center items-center uppercase">
+            <div className="flex flex-col sm:flex-row items-center gap-5 justify-between border-b border-[var(--foreground)] w-full py-4 font-galaxie-polaris-medium text-xs tracking-[2px]">
                 <span className="cursor-pointer" onClick={() => { updatePrivacyPolicyPopUp(true); stopBodyScroll()}}>Privacy Policy</span>
-                <ul className="flex gap-40">
+                <ul className="flex gap-10 sm:gap-15 md:gap-20 lg:gap-25 xl:gap-40">
                     <li>
                         <Link href="https://www.facebook.com/panchshilrealty/" target="_blank">
                             <FaFacebookF className="color-foreground" size={20} />

@@ -2,19 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-
-import { IoIosMenu } from "react-icons/io";
-import { IoClose } from "react-icons/io5";
 
 export default function Header() {
     const basePath = process.env.NEXT_PUBLIC_PATH!.replace(/\/$/, "");
 
-    const [openMenu, updateMenu] = useState(false);
-
     return (
-        <header className="fixed top-0 left-0 w-full flex justify-between bg-black/70 z-50 px-25 py-3">
-            <Link href="/" className="w-[125px]">
+        <header className="fixed top-0 left-0 w-full flex justify-between items-center bg-black/70 z-10 px-5 sm:px-10 md:px-5 xl:px-10 2xl:px-25 py-3">
+            <Link href="/" className="w-20 md:w-[125px]">
                 <div>
                     <Image src={`${basePath}/images/logo.png`} alt="Trump Towers logo" width={125} height={72} className="object-cover w-full h-full" loading="eager" />
                 </div>
@@ -44,7 +38,6 @@ export default function Header() {
                     <Image src={`${basePath}/images/panchsil-corp-logo.png`} alt="Panchshil Logo" width={100} height={100} className="w-full h-full object-cover" loading="eager" />
                 </div>
             </Link>
-            <IoIosMenu size={50} className="lg:hidden default-color cursor-pointer mt-5" onClick={() => updateMenu(true)} />
         </header>
     )
 }
