@@ -18,6 +18,11 @@ import { useEffect, useRef, useState } from "react";
 
 import { IoIosArrowDown, IoMdPlay, IoIosArrowRoundBack, IoIosArrowRoundForward } from "react-icons/io";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
 import parser from 'html-react-parser'
 import nl2br from 'nl2br'
@@ -90,13 +95,132 @@ export default function HomePage({
         }, 0)
     }
 
+    const sliderRef = useRef<HTMLDivElement>(null);
+    const aboutRef = useRef<HTMLDivElement>(null);
+    const locationRef = useRef<HTMLDivElement>(null);
+    const landmarksRef = useRef<HTMLDivElement>(null);
+    const amenitiesSectionRef = useRef<HTMLDivElement>(null);
+    const amenitiesRef = useRef<HTMLDivElement>(null);
+    const galleryRef = useRef<HTMLDivElement>(null);
+    const portfolioSectionRef = useRef<HTMLDivElement>(null);
+    const portfoliosRef = useRef<HTMLDivElement>(null);
+    const aboutPanchshilRef = useRef<HTMLDivElement>(null);
+
+    useGSAP(() => {
+        if(sliderRef.current) {
+            gsap.fromTo(sliderRef.current,
+                { opacity: 0 },
+                {
+                    opacity: 1,
+                    duration: 1.5,
+                    ease: 'power2.out'
+                }
+            )
+        }
+
+        const sections = [
+            aboutRef,
+            portfolioSectionRef,
+            amenitiesSectionRef,
+            galleryRef,
+            locationRef,
+            aboutPanchshilRef,
+        ];
+
+        sections.forEach((section) => {
+            if (!section.current) return;
+
+            gsap.fromTo(
+                section.current,
+                { opacity: 0, y: 100 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: section.current,
+                        start: "top 80%",
+                        toggleActions: "play reverse play reverse",
+                    },
+                }
+            );
+        });
+    }, [])
+
+    useGSAP(() => {
+        gsap.fromTo(
+            ".amenities-item",
+            {
+                opacity: 0,
+                y: 20,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: amenitiesRef.current,
+                    start: "top 85%",
+                    toggleActions: "play reverse play reverse",
+                },
+            }
+        );
+    }, { scope: amenitiesRef });
+
+    useGSAP(() => {
+        gsap.fromTo(
+            ".landmark-item",
+            {
+                opacity: 0,
+                y: 20,
+            },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: landmarksRef.current,
+                    start: "top 85%",
+                    toggleActions: "play reverse play reverse",
+                },
+            }
+        );
+    }, { scope: landmarksRef });
+
+    useGSAP(() => {
+        gsap.fromTo(
+            ".portfolio-item",
+            {
+                opacity: 0,
+                y: 20,
+            },
+            {
+                opacity: 0.5,
+                y: 0,
+                duration: 0.6,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: portfoliosRef.current,
+                    start: "top 85%",
+                    toggleActions: "play reverse play reverse",
+                },
+            }
+        );
+    }, { scope: portfoliosRef });
+
     return (
         <>
         <Header />
         <main className="bg-black">
             {
                 sliders && sliders.length > 0 && (
-                <section className="relative md:h-screen w-full overflow-hidden">
+                <section className="relative md:h-screen w-full overflow-hidden opacity-0" ref={sliderRef}>
                     <Swiper
                     modules={[Pagination, Autoplay]}
                     slidesPerView={1}
@@ -126,7 +250,7 @@ export default function HomePage({
             }
             {
                 introduction && (
-                    <section className="px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 py-15 md:py-20 flex flex-col gap-15 text-white font-galaxie-polaris-light bg-cover bg-no-repeat default-bg-color" id="about" style={{backgroundImage: `url(${basePath}/images/about.png)`}}>
+                    <section className="px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 py-15 md:py-20 flex flex-col gap-15 text-white font-galaxie-polaris-light bg-cover bg-no-repeat default-bg-color" id="about" style={{backgroundImage: `url(${basePath}/images/about.png)`}} ref={aboutRef}>
                         <div className="flex flex-col gap-7 text-lg md:text-xl items-center tracking-[2px]">
                             <hr className="border-[#ab8e5f] border-2 w-50" />
                             <h2>Welcome to India’s first</h2>
@@ -160,7 +284,7 @@ export default function HomePage({
             }
             {
                 gallery && gallery.length > 0 && (
-                    <section className="bg-[#343437] px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 py-5 md:pt-20 md:pb-10 flex flex-col gap-10 relative" id="residences">
+                    <section className="bg-[#343437] px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 py-5 md:pt-20 md:pb-10 flex flex-col gap-10 relative" id="residences" ref={galleryRef}>
                         <h2 className="uppercase font-galaxie-polaris-medium tracking-[5px] text-2xl md:text-3xl text-white text-center">Residences</h2>
                         <Swiper className="relative w-full gallery h-75 md:h-125" modules={[Navigation]} loop={true} slidesPerView={1.2} navigation={{prevEl: '.gallery_prev', nextEl: '.gallery_next'}} centeredSlides>
                             {
@@ -184,12 +308,12 @@ export default function HomePage({
             }
             {
                 amenities && amenities.length > 0 && (
-                    <section className="bg-[#343437] px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 py-10 md:py-15 lg:py-20 xl:py-30 flex flex-col gap-10" id="amenities">
+                    <section className="bg-[#343437] px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 py-10 md:py-15 lg:py-20 xl:py-30 flex flex-col gap-10" id="amenities" ref={amenitiesSectionRef}>
                         <h2 className="uppercase font-galaxie-polaris-medium tracking-[5px] text-2xl md:text-3xl text-white text-center">Amenities</h2>
-                        <div className="w-full flex justify-between">
+                        <div className="w-full flex justify-between" ref={amenitiesRef}>
                             {
                                 amenities.map((amenity, key) => (
-                                    <div className="flex flex-col gap-3 md:gap-5 items-center justify-center text-center cursor-pointer group" key={key} onClick={() => updateActiveAmenity(key)}>
+                                    <div className="amenities-item flex flex-col gap-3 md:gap-5 items-center justify-center text-center cursor-pointer group" key={key} onClick={() => updateActiveAmenity(key)}>
                                         <div className="w-7 h-7">
                                             <Image src={amenity.amenity_icon_url} alt={amenity.amenity_caption} className="object-cover w-full h-full" width={10} height={10} />
                                         </div>
@@ -220,12 +344,12 @@ export default function HomePage({
             }
             {
                 landmarks && landmarks.length > 0 && (
-                    <section className="px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 text-white flex flex-col gap-15 bg-cover bg-no-repeat py-10 bg-[#343437] items-center" style={{backgroundImage: `url(${basePath}/images/location.png)`}} id="location">
+                    <section className="px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 text-white flex flex-col gap-15 bg-cover bg-no-repeat py-10 bg-[#343437] items-center" style={{backgroundImage: `url(${basePath}/images/location.png)`}} id="location" ref={locationRef}>
                         <h2 className="uppercase font-galaxie-polaris-medium tracking-[3px] text-2xl md:text-3xl">Location</h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:flex lg:flex-row gap-10 w-full md:justify-between 2xl:w-7xl">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:flex lg:flex-row gap-10 w-full md:justify-between 2xl:w-7xl" ref={landmarksRef}>
                             {
                                 landmarks.map((landmark, key) => (
-                                    <div className="flex flex-col gap-3 md:gap-5 items-center justify-center text-center" key={key}>
+                                    <div className="landmark-item flex flex-col gap-3 md:gap-5 items-center justify-center text-center" key={key}>
                                         <div className="w-7 h-7">
                                             <Image src={landmark.landmark_icon_url} alt={landmark.landmark_caption} className="object-cover w-full h-full" width={10} height={10} />
                                         </div>
@@ -241,7 +365,7 @@ export default function HomePage({
             }
             {
                 portfolio && portfolio.length > 0 && (
-                    <section className="bg-[#343437] px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 pt-20 pb-10 flex flex-col gap-10" id="portfolio">
+                    <section className="bg-[#343437] px-5 sm:px-10 md:px-15 lg:px-20 xl:px-25 2xl:px-50 pt-20 pb-10 flex flex-col gap-10" id="portfolio" ref={portfolioSectionRef}>
                         <h2 className="uppercase font-galaxie-polaris-medium tracking-[5px] text-2xl md:text-3xl text-white text-center">Trump Portfolio Worldwide</h2>
                         <div className="relative h-125 overflow-hidden">
                             <AnimatePresence mode="wait">
@@ -265,10 +389,10 @@ export default function HomePage({
                                 </motion.div>
                             </AnimatePresence>
                         </div>
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:gap-0 lg:flex justify-between py-5">
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-5 lg:gap-0 lg:flex justify-between py-5" ref={portfoliosRef}>
                         {
                             portfolio.map((portfolio_single, key) => (
-                                <div className={`flex flex-col gap-1 text-center xl:text-left cursor-pointer transition-opacity duration-300 hover:opacity-100 ${key === activePortfolio ? 'opacity-100' : 'opacity-50'}`} key={key} onClick={() => updateActivePortfolio(key)}>
+                                <div className={`portfolio-item flex flex-col gap-1 text-center xl:text-left cursor-pointer transition-opacity duration-300 hover:opacity-100 ${key === activePortfolio ? '!opacity-100' : 'opacity-50'}`} key={key} onClick={() => updateActivePortfolio(key)}>
                                     <h3 className={`font-athelas-regular uppercase transition-all duration-300 hover:text-white ${key === activePortfolio ? 'text-white' : ''}`}>{portfolio_single.portfolio_caption}</h3>
                                     <h4 className="font-galaxie-polaris-light text-white">{portfolio_single.portfolio_city_name}</h4>
                                 </div>
@@ -280,7 +404,7 @@ export default function HomePage({
             }
             {
                 aboutPanchshil && (
-                    <section className={`bg-cover bg-no-repeat md:h-[80vh] relative w-full flex ${openSans.className}`} style={{backgroundImage: `url(${basePath}/images/about_panchshil_bg.jpg)`}}>
+                    <section className={`bg-cover bg-no-repeat md:h-[80vh] relative w-full flex ${openSans.className}`} style={{backgroundImage: `url(${basePath}/images/about_panchshil_bg.jpg)`}} ref={aboutPanchshilRef}>
                         <div className="bg-gradient-to-b from-[#00000033] to-[#2C2E2C] absolute inset-0 left-0 top-0"></div>
                         <div className="mx-auto bg-[#2C2C2F]/87 mt-auto py-10 px-5 sm:px-10 md:px-15 lg:px-20 xl:px-35 lg:w-[80%] flex flex-col gap-10 text-center relative">
                             <h2 className="text-[#A9936E] text-4xl md:text-5xl font-galaxie-polaris-medium">{aboutPanchshil.introduction_title}</h2>
