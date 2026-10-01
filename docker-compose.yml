@@ -1,5 +1,5 @@
 services:
-  web:
+  ttp-web:
     container_name: trump-towers-pune-frontend
 
     build:
