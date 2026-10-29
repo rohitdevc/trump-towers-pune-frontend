@@ -78,6 +78,7 @@ BASEPATH_PREFIX=
 ASSET_PREFIX=
 API_DOMAIN_NAME=
 FRONTEND_TOKEN_KEY=
+REDIS_URL=
 ```
 
 | Variable | Purpose |
@@ -87,6 +88,7 @@ FRONTEND_TOKEN_KEY=
 | `ASSET_PREFIX` | Optional static asset prefix |
 | `API_DOMAIN_NAME` | API domain used by the application |
 | `FRONTEND_TOKEN_KEY` | Token-related configuration used by the frontend |
+| `REDIS_URL` | Redis URL used by the application. |
 
 Verify the expected values against the API service modules and deployment configuration before starting the application.
 
