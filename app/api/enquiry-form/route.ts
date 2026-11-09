@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { submitEnquiryForm } from "@/lib/enquiry-form";
+import { checkRateLimit } from "@/lib/rate-limit";
 
 export async function POST(req: NextRequest) {
-  try {
+  const blocked = await checkRateLimit(req, "contact");
 
+  if (blocked) return blocked;
+
+  try {
     const body = await req.json();
 
     const result = await submitEnquiryForm(body);
